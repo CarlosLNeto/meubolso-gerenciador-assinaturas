@@ -126,9 +126,51 @@ python manage.py runserver
 - **python-dateutil 2.9.0**: Manipulação avançada de datas
 - **PyPDF2 3.0.1**: Leitura de documentos PDF (usado no desenvolvimento)
 
-## 📊 Diagrama ER
+## 📊 Diagramas ER
 
-Para visualizar o diagrama completo Entidade-Relacionamento, consulte o arquivo `DIAGRAMA_ER.md`.
+O projeto possui múltiplas versões do diagrama Entidade-Relacionamento:
+
+- **`DIAGRAMA_ER.md`** - Diagrama em texto e ASCII (versão original)
+- **`diagrama_er_mermaid.md`** - Diagrama visual interativo com Mermaid (renderiza no GitHub)
+- **`diagrama_dbdiagram.md`** - Código para gerar diagrama visual em https://dbdiagram.io
+
+### Visualização Rápida
+
+O diagrama abaixo é renderizado automaticamente pelo GitHub usando Mermaid:
+
+```mermaid
+erDiagram
+    USUARIO ||--o{ CATEGORIA : possui
+    USUARIO ||--o{ ASSINATURA : possui
+    CATEGORIA ||--o{ ASSINATURA : categoriza
+
+    USUARIO {
+        int id PK
+        string username UK
+        string email UK
+        string password
+        datetime date_joined
+    }
+
+    CATEGORIA {
+        int id PK
+        int usuario_id FK
+        string nome
+        text descricao
+        string cor
+    }
+
+    ASSINATURA {
+        int id PK
+        int usuario_id FK
+        int categoria_id FK
+        string nome
+        decimal valor
+        string ciclo_pagamento
+        date data_proxima_cobranca
+        string status
+    }
+```
 
 ## 🎯 Funcionalidades Planejadas
 
