@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from decimal import Decimal
+from datetime import datetime
 from ..models import Assinatura, Categoria
 
 
@@ -80,6 +81,12 @@ def criar_assinatura(request):
         try:
             # Converter valor para Decimal
             valor = Decimal(valor.replace(',', '.'))
+            
+            # Converter data para objeto date
+            data_primeira_cobranca = datetime.strptime(
+                data_primeira_cobranca, 
+                '%Y-%m-%d'
+            ).date()
 
             # Buscar categoria (se fornecida)
             categoria = None
@@ -158,6 +165,12 @@ def editar_assinatura(request, id):
         try:
             # Converter valor para Decimal
             valor = Decimal(valor.replace(',', '.'))
+            
+            # Converter data para objeto date
+            data_primeira_cobranca = datetime.strptime(
+                data_primeira_cobranca, 
+                '%Y-%m-%d'
+            ).date()
 
             # Buscar categoria (se fornecida)
             categoria = None

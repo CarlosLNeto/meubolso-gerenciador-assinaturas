@@ -1,0 +1,257 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {% if categoria %}Editar Categoria{% else %}Nova Categoria{% endif %} - Meu Bolso
+{% endblock %}
+
+{% block page_title %}
+    {% if categoria %}
+        <i class="bi bi-pencil"></i> Editar Categoria
+    {% else %}
+        <i class="bi bi-plus-lg"></i> Nova Categoria
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card-custom">
+            <div class="d-flex align-items-center mb-4">
+                <div class="stat-icon me-3" style="background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));">
+                    <i class="bi bi-tag-fill"></i>
+                </div>
+                <div>
+                    <h4 class="mb-0">
+                        {% if categoria %}
+                            Editar Categoria: {{ categoria.nome }}
+                        {% else %}
+                            Criar Nova Categoria
+                        {% endif %}
+                    </h4>
+                    <p class="text-secondary-custom mb-0 small">
+                        Organize suas assinaturas por categorias
+                    </p>
+                </div>
+            </div>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="post" class="mt-4">
+                {% csrf_token %}
+                
+                <!-- Nome da Categoria -->
+                <div class="mb-4">
+                    <label for="nome" class="form-label">
+                        Nome da Categoria <span class="text-danger">*</span>
+                    </label>
+                    <input type="text" 
+                           class="form-control form-control-custom" 
+                           id="nome" 
+                           name="nome" 
+                           value="{{ categoria.nome|default:'' }}"
+                           placeholder="Ex: Streaming, Produtividade, Entretenimento"
+                           required
+                           maxlength="100">
+                    <small class="text-secondary-custom">Nome único para identificar a categoria</small>
+                </div>
+
+                <!-- Descrição -->
+                <div class="mb-4">
+                    <label for="descricao" class="form-label">Descrição</label>
+                    <textarea class="form-control form-control-custom" 
+                              id="descricao" 
+                              name="descricao" 
+                              rows="3"
+                              placeholder="Descreva o tipo de serviços desta categoria (opcional)">{{ categoria.descricao|default:'' }}</textarea>
+                    <small class="text-secondary-custom">Informações adicionais sobre a categoria</small>
+                </div>
+
+                <!-- Seletor de Cor -->
+                <div class="mb-4">
+                    <label for="cor" class="form-label">
+                        Cor da Categoria <span class="text-danger">*</span>
+                    </label>
+                    <div class="d-flex align-items-center gap-3">
+                        <input type="color" 
+                               class="form-control form-control-color" 
+                               id="cor" 
+                               name="cor" 
+                               value="{{ categoria.cor|default:'#6366f1' }}"
+                               style="width: 80px; height: 50px; cursor: pointer;">
+                        
+                        <div class="flex-grow-1">
+                            <div class="color-preview p-3 rounded-3 text-center" id="colorPreview">
+                                <i class="bi bi-tag-fill me-2"></i>
+                                <span id="colorText">{{ categoria.nome|default:'Prévia da Categoria' }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <small class="text-secondary-custom">Escolha uma cor para identificar visualmente a categoria</small>
+                </div>
+
+                <!-- Cores Predefinidas -->
+                <div class="mb-4">
+                    <label class="form-label">Cores Sugeridas</label>
+                    <div class="d-flex gap-2 flex-wrap">
+                        <button type="button" class="color-preset" data-color="#6366f1" style="background-color: #6366f1;" title="Índigo"></button>
+                        <button type="button" class="color-preset" data-color="#8b5cf6" style="background-color: #8b5cf6;" title="Roxo"></button>
+                        <button type="button" class="color-preset" data-color="#ec4899" style="background-color: #ec4899;" title="Rosa"></button>
+                        <button type="button" class="color-preset" data-color="#ef4444" style="background-color: #ef4444;" title="Vermelho"></button>
+                        <button type="button" class="color-preset" data-color="#f59e0b" style="background-color: #f59e0b;" title="Âmbar"></button>
+                        <button type="button" class="color-preset" data-color="#10b981" style="background-color: #10b981;" title="Verde"></button>
+                        <button type="button" class="color-preset" data-color="#06b6d4" style="background-color: #06b6d4;" title="Ciano"></button>
+                        <button type="button" class="color-preset" data-color="#3b82f6" style="background-color: #3b82f6;" title="Azul"></button>
+                        <button type="button" class="color-preset" data-color="#6366f1" style="background-color: #6366f1;" title="Índigo"></button>
+                        <button type="button" class="color-preset" data-color="#8b5cf6" style="background-color: #8b5cf6;" title="Roxo"></button>
+                    </div>
+                </div>
+
+                <!-- Botões de Ação -->
+                <div class="d-flex gap-2 justify-content-end mt-4 pt-4 border-top border-secondary">
+                    <a href="{% url 'categorias' %}" class="btn btn-secondary-custom">
+                        <i class="bi bi-x-lg"></i> Cancelar
+                    </a>
+                    <button type="submit" class="btn btn-primary-custom">
+                        <i class="bi bi-check-lg"></i> 
+                        {% if categoria %}Salvar Alterações{% else %}Criar Categoria{% endif %}
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        {% if categoria %}
+        <div class="card-custom mt-3 border-danger">
+            <div class="d-flex align-items-center">
+                <i class="bi bi-exclamation-triangle text-danger fs-4 me-3"></i>
+                <div class="flex-grow-1">
+                    <h6 class="mb-1">Zona de Perigo</h6>
+                    <p class="text-secondary-custom mb-0 small">
+                        Deletar esta categoria afetará {{ categoria.assinaturas.count }} assinatura(s)
+                    </p>
+                </div>
+                <a href="{% url 'deletar_categoria' categoria.id %}" class="btn btn-outline-danger">
+                    <i class="bi bi-trash"></i> Deletar Categoria
+                </a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+    .stat-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        color: white;
+    }
+    
+    .form-control-custom {
+        background-color: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        color: var(--text-primary);
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+    
+    .form-control-custom:focus {
+        background-color: var(--bg-secondary);
+        border-color: var(--accent-purple);
+        color: var(--text-primary);
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    }
+    
+    .form-control-custom::placeholder {
+        color: var(--text-secondary);
+        opacity: 0.6;
+    }
+    
+    .form-control-color {
+        border: 2px solid var(--border-color);
+        border-radius: 8px;
+        padding: 0.25rem;
+    }
+    
+    .color-preview {
+        background: var(--bg-secondary);
+        border: 2px solid var(--border-color);
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    
+    .color-preset {
+        width: 40px;
+        height: 40px;
+        border: 3px solid var(--bg-secondary);
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        outline: 2px solid transparent;
+    }
+    
+    .color-preset:hover {
+        transform: scale(1.1);
+        outline: 2px solid var(--accent-purple);
+    }
+    
+    .color-preset:active {
+        transform: scale(0.95);
+    }
+    
+    .form-label {
+        color: var(--text-primary);
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+</style>
+
+<script>
+    // Atualizar preview de cor
+    const corInput = document.getElementById('cor');
+    const colorPreview = document.getElementById('colorPreview');
+    const colorText = document.getElementById('colorText');
+    const nomeInput = document.getElementById('nome');
+    
+    function updatePreview() {
+        const cor = corInput.value;
+        colorPreview.style.backgroundColor = cor;
+        colorPreview.style.color = getContrastColor(cor);
+        colorText.textContent = nomeInput.value || 'Prévia da Categoria';
+    }
+    
+    // Calcular cor de contraste para texto
+    function getContrastColor(hexColor) {
+        const r = parseInt(hexColor.substr(1, 2), 16);
+        const g = parseInt(hexColor.substr(3, 2), 16);
+        const b = parseInt(hexColor.substr(5, 2), 16);
+        const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+        return brightness > 155 ? '#000000' : '#ffffff';
+    }
+    
+    corInput.addEventListener('input', updatePreview);
+    nomeInput.addEventListener('input', updatePreview);
+    
+    // Cores predefinidas
+    document.querySelectorAll('.color-preset').forEach(button => {
+        button.addEventListener('click', function() {
+            corInput.value = this.dataset.color;
+            updatePreview();
+        });
+    });
+    
+    // Inicializar preview
+    updatePreview();
+</script>
+{% endblock %}
