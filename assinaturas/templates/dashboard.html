@@ -1,0 +1,259 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - Meu Bolso{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
+
+{% block content %}
+<!-- Cards de Estatísticas -->
+<div class="row g-4 mb-4">
+    <!-- Card: Total de Assinaturas -->
+    <div class="col-12 col-md-6 col-xl-3">
+        <div class="card-custom">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+                <div>
+                    <p class="text-secondary-custom mb-1" style="font-size: 0.875rem;">Total de Assinaturas</p>
+                    <h2 class="mb-0" style="font-size: 2rem; font-weight: 700;">{{ total_assinaturas }}</h2>
+                </div>
+                <div style="width: 48px; height: 48px; background: rgba(59, 130, 246, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                    <i class="bi bi-credit-card" style="font-size: 1.5rem; color: var(--accent-blue);"></i>
+                </div>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                <span class="badge" style="background: rgba(16, 185, 129, 0.1); color: var(--accent-green); font-weight: 500;">
+                    <i class="bi bi-arrow-up"></i> Ativas
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card: Gasto Mensal -->
+    <div class="col-12 col-md-6 col-xl-3">
+        <div class="card-custom">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+                <div>
+                    <p class="text-secondary-custom mb-1" style="font-size: 0.875rem;">Gasto Mensal</p>
+                    <h2 class="mb-0" style="font-size: 2rem; font-weight: 700;">R$ {{ gasto_mensal|floatformat:2 }}</h2>
+                </div>
+                <div style="width: 48px; height: 48px; background: rgba(16, 185, 129, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                    <i class="bi bi-cash-stack" style="font-size: 1.5rem; color: var(--accent-green);"></i>
+                </div>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                <span class="text-secondary-custom" style="font-size: 0.875rem;">
+                    <i class="bi bi-calendar-month"></i> Por mês
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card: Gasto Anual -->
+    <div class="col-12 col-md-6 col-xl-3">
+        <div class="card-custom">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+                <div>
+                    <p class="text-secondary-custom mb-1" style="font-size: 0.875rem;">Gasto Anual</p>
+                    <h2 class="mb-0" style="font-size: 2rem; font-weight: 700;">R$ {{ gasto_anual|floatformat:2 }}</h2>
+                </div>
+                <div style="width: 48px; height: 48px; background: rgba(139, 92, 246, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                    <i class="bi bi-calendar-check" style="font-size: 1.5rem; color: var(--accent-purple);"></i>
+                </div>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                <span class="text-secondary-custom" style="font-size: 0.875rem;">
+                    <i class="bi bi-calendar-range"></i> Por ano
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card: Próximas Cobranças -->
+    <div class="col-12 col-md-6 col-xl-3">
+        <div class="card-custom">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+                <div>
+                    <p class="text-secondary-custom mb-1" style="font-size: 0.875rem;">Próximas Cobranças</p>
+                    <h2 class="mb-0" style="font-size: 2rem; font-weight: 700;">{{ proximas_cobranças.count }}</h2>
+                </div>
+                <div style="width: 48px; height: 48px; background: rgba(245, 158, 11, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                    <i class="bi bi-bell" style="font-size: 1.5rem; color: var(--accent-yellow);"></i>
+                </div>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                <span class="text-secondary-custom" style="font-size: 0.875rem;">
+                    <i class="bi bi-clock"></i> Próximos 30 dias
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <!-- Tabela de Assinaturas Recentes -->
+    <div class="col-12 col-xl-8">
+        <div class="card-custom">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 style="font-size: 1.25rem; font-weight: 600; margin: 0;">Assinaturas Ativas</h3>
+                <a href="{% url 'assinaturas' %}" class="btn btn-primary-custom btn-sm">
+                    <i class="bi bi-plus-lg"></i> Nova Assinatura
+                </a>
+            </div>
+
+            {% if assinaturas_ativas %}
+            <div class="table-responsive">
+                <table class="table table-dark table-hover" style="margin: 0;">
+                    <thead>
+                        <tr style="border-color: var(--border-color);">
+                            <th style="padding: 1rem; font-weight: 600; color: var(--text-secondary);">Nome</th>
+                            <th style="padding: 1rem; font-weight: 600; color: var(--text-secondary);">Categoria</th>
+                            <th style="padding: 1rem; font-weight: 600; color: var(--text-secondary);">Valor</th>
+                            <th style="padding: 1rem; font-weight: 600; color: var(--text-secondary);">Ciclo</th>
+                            <th style="padding: 1rem; font-weight: 600; color: var(--text-secondary);">Próxima Cobrança</th>
+                            <th style="padding: 1rem; font-weight: 600; color: var(--text-secondary);">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for assinatura in assinaturas_ativas %}
+                        <tr style="border-color: var(--border-color);">
+                            <td style="padding: 1rem;">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div style="width: 40px; height: 40px; background: var(--bg-tertiary); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                                        <i class="bi bi-app" style="color: var(--accent-blue);"></i>
+                                    </div>
+                                    <div>
+                                        <div style="font-weight: 500;">{{ assinatura.nome }}</div>
+                                        {% if assinatura.descricao %}
+                                        <div class="text-secondary-custom" style="font-size: 0.875rem;">{{ assinatura.descricao|truncatewords:5 }}</div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="padding: 1rem;">
+                                {% if assinatura.categoria %}
+                                <span class="badge" style="background: {{ assinatura.categoria.cor }}33; color: {{ assinatura.categoria.cor }}; font-weight: 500;">
+                                    {{ assinatura.categoria.nome }}
+                                </span>
+                                {% else %}
+                                <span class="text-secondary-custom">Sem categoria</span>
+                                {% endif %}
+                            </td>
+                            <td style="padding: 1rem; font-weight: 600;">R$ {{ assinatura.valor|floatformat:2 }}</td>
+                            <td style="padding: 1rem;">
+                                <span class="text-secondary-custom">{{ assinatura.get_ciclo_pagamento_display }}</span>
+                            </td>
+                            <td style="padding: 1rem;">
+                                {% if assinatura.dias_ate_proxima_cobranca <= 7 %}
+                                <span style="color: var(--accent-yellow);">
+                                    {{ assinatura.data_proxima_cobranca|date:"d/m/Y" }}
+                                </span>
+                                {% else %}
+                                <span class="text-secondary-custom">
+                                    {{ assinatura.data_proxima_cobranca|date:"d/m/Y" }}
+                                </span>
+                                {% endif %}
+                            </td>
+                            <td style="padding: 1rem;">
+                                <span class="badge" style="background: rgba(16, 185, 129, 0.1); color: var(--accent-green); font-weight: 500;">
+                                    <i class="bi bi-check-circle"></i> {{ assinatura.get_status_display }}
+                                </span>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="text-center py-5">
+                <i class="bi bi-inbox" style="font-size: 4rem; color: var(--text-secondary); opacity: 0.5;"></i>
+                <p class="text-secondary-custom mt-3 mb-4">Você ainda não possui assinaturas cadastradas.</p>
+                <a href="{% url 'assinaturas' %}" class="btn btn-primary-custom">
+                    <i class="bi bi-plus-lg"></i> Adicionar Primeira Assinatura
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Sidebar: Próximas Cobranças -->
+    <div class="col-12 col-xl-4">
+        <!-- Próximas Cobranças -->
+        <div class="card-custom mb-4">
+            <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 1.5rem;">
+                <i class="bi bi-clock-history"></i> Próximas Cobranças
+            </h3>
+
+            {% if proximas_cobranças %}
+            <div class="d-flex flex-column gap-3">
+                {% for assinatura in proximas_cobranças %}
+                <div class="d-flex align-items-center justify-content-between p-3" style="background: var(--bg-tertiary); border-radius: 8px;">
+                    <div class="d-flex align-items-center gap-3">
+                        <div style="width: 48px; height: 48px; background: var(--bg-secondary); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                            <i class="bi bi-calendar-event" style="color: var(--accent-blue);"></i>
+                        </div>
+                        <div>
+                            <div style="font-weight: 500;">{{ assinatura.nome }}</div>
+                            <div class="text-secondary-custom" style="font-size: 0.875rem;">
+                                {{ assinatura.data_proxima_cobranca|date:"d/m/Y" }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-end">
+                        <div style="font-weight: 600; font-size: 1.125rem;">R$ {{ assinatura.valor|floatformat:2 }}</div>
+                        <div class="text-secondary-custom" style="font-size: 0.75rem;">
+                            {% with dias=assinatura.dias_ate_proxima_cobranca %}
+                                {% if dias == 0 %}
+                                    Hoje
+                                {% elif dias == 1 %}
+                                    Amanhã
+                                {% else %}
+                                    {{ dias }} dias
+                                {% endif %}
+                            {% endwith %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="text-center py-4">
+                <i class="bi bi-calendar-x" style="font-size: 3rem; color: var(--text-secondary); opacity: 0.5;"></i>
+                <p class="text-secondary-custom mt-3 mb-0">Nenhuma cobrança nos próximos 30 dias.</p>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Categorias -->
+        <div class="card-custom">
+            <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 1.5rem;">
+                <i class="bi bi-tag"></i> Categorias
+            </h3>
+
+            {% if categorias_stats %}
+            <div class="d-flex flex-column gap-3">
+                {% for categoria in categorias_stats %}
+                <div class="d-flex align-items-center justify-content-between">
+                    <div class="d-flex align-items-center gap-2">
+                        <div style="width: 12px; height: 12px; background: {{ categoria.cor }}; border-radius: 3px;"></div>
+                        <span>{{ categoria.nome }}</span>
+                    </div>
+                    <span class="badge" style="background: var(--bg-tertiary); color: var(--text-primary);">
+                        {{ categoria.total_assinaturas }}
+                    </span>
+                </div>
+                {% endfor %}
+            </div>
+            <a href="{% url 'categorias' %}" class="btn btn-primary-custom w-100 mt-3">
+                <i class="bi bi-grid"></i> Ver Todas
+            </a>
+            {% else %}
+            <div class="text-center py-4">
+                <i class="bi bi-tags" style="font-size: 3rem; color: var(--text-secondary); opacity: 0.5;"></i>
+                <p class="text-secondary-custom mt-3 mb-3">Nenhuma categoria criada.</p>
+                <a href="{% url 'categorias' %}" class="btn btn-primary-custom">
+                    <i class="bi bi-plus-lg"></i> Criar Categoria
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
