@@ -4,12 +4,172 @@
 {% block page_title %}Gerenciar Categorias{% endblock %}
 
 {% block content %}
-<div class="card-custom text-center py-5">
-    <i class="bi bi-tag" style="font-size: 4rem; color: var(--accent-purple);"></i>
-    <h3 class="mt-4">Página de Categorias</h3>
-    <p class="text-secondary-custom">Em desenvolvimento...</p>
-    <a href="{% url 'dashboard' %}" class="btn btn-primary-custom mt-3">
-        <i class="bi bi-arrow-left"></i> Voltar ao Dashboard
+<!-- Estatísticas das Categorias -->
+<div class="row g-3 mb-4">
+    <div class="col-md-4">
+        <div class="card-custom">
+            <div class="d-flex align-items-center">
+                <div class="stat-icon" style="background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));">
+                    <i class="bi bi-tags"></i>
+                </div>
+                <div class="ms-3">
+                    <h6 class="text-secondary-custom mb-1">Total de Categorias</h6>
+                    <h3 class="mb-0">{{ categorias|length }}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card-custom">
+            <div class="d-flex align-items-center">
+                <div class="stat-icon" style="background: linear-gradient(135deg, var(--accent-green), var(--accent-blue));">
+                    <i class="bi bi-check-circle"></i>
+                </div>
+                <div class="ms-3">
+                    <h6 class="text-secondary-custom mb-1">Com Assinaturas</h6>
+                    <h3 class="mb-0">{{ categorias|length }}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card-custom">
+            <div class="d-flex align-items-center">
+                <div class="stat-icon" style="background: linear-gradient(135deg, var(--accent-orange), var(--accent-purple));">
+                    <i class="bi bi-bookmark-star"></i>
+                </div>
+                <div class="ms-3">
+                    <h6 class="text-secondary-custom mb-1">Assinaturas Ativas</h6>
+                    <h3 class="mb-0">
+                        {% for cat in categorias %}
+                            {{ cat.assinaturas_ativas }}{% if not forloop.last %} + {% endif %}
+                        {% empty %}
+                            0
+                        {% endfor %}
+                    </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Ações e Mensagens -->
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h5 class="mb-0">Lista de Categorias</h5>
+    <a href="{% url 'criar_categoria' %}" class="btn btn-primary-custom">
+        <i class="bi bi-plus-lg"></i> Nova Categoria
     </a>
 </div>
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    {% endfor %}
+{% endif %}
+
+<!-- Tabela de Categorias -->
+<div class="card-custom">
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Cor</th>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th class="text-center">Assinaturas Ativas</th>
+                    <th class="text-center">Total Assinaturas</th>
+                    <th class="text-end">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for categoria in categorias %}
+                    <tr>
+                        <td>
+                            <span class="badge" style="background-color: {{ categoria.cor }}; min-width: 60px;">
+                                <i class="bi bi-tag-fill"></i>
+                            </span>
+                        </td>
+                        <td>
+                            <strong>{{ categoria.nome }}</strong>
+                        </td>
+                        <td>
+                            {% if categoria.descricao %}
+                                <span class="text-secondary-custom">{{ categoria.descricao|truncatewords:10 }}</span>
+                            {% else %}
+                                <span class="text-muted fst-italic">Sem descrição</span>
+                            {% endif %}
+                        </td>
+                        <td class="text-center">
+                            <span class="badge bg-success">{{ categoria.assinaturas_ativas }}</span>
+                        </td>
+                        <td class="text-center">
+                            <span class="badge bg-secondary">{{ categoria.total_assinaturas }}</span>
+                        </td>
+                        <td class="text-end">
+                            <a href="{% url 'editar_categoria' categoria.id %}" 
+                               class="btn btn-sm btn-outline-primary">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            <a href="{% url 'deletar_categoria' categoria.id %}" 
+                               class="btn btn-sm btn-outline-danger ms-1">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center py-5">
+                            <i class="bi bi-tags" style="font-size: 3rem; color: var(--accent-purple); opacity: 0.3;"></i>
+                            <p class="text-secondary-custom mt-3 mb-0">Nenhuma categoria cadastrada ainda.</p>
+                            <a href="{% url 'criar_categoria' %}" class="btn btn-primary-custom mt-3">
+                                <i class="bi bi-plus-lg"></i> Criar primeira categoria
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    .stat-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        color: white;
+    }
+    
+    .table > :not(caption) > * > * {
+        padding: 1rem 0.75rem;
+        background-color: transparent;
+        border-bottom: 1px solid var(--border-color);
+        color: var(--text-primary);
+    }
+    
+    .table thead th {
+        border-bottom: 2px solid var(--border-color);
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        letter-spacing: 0.5px;
+        color: var(--text-secondary);
+    }
+    
+    .table-hover tbody tr:hover {
+        background-color: rgba(99, 102, 241, 0.05);
+    }
+    
+    .badge {
+        padding: 0.35em 0.65em;
+        font-weight: 600;
+    }
+</style>
 {% endblock %}
