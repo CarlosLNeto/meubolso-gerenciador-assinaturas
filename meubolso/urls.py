@@ -20,7 +20,20 @@ from assinaturas import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # Dashboard
     path('', views.dashboard, name='dashboard'),
-    path('assinaturas/', views.assinaturas_view, name='assinaturas'),
-    path('categorias/', views.categorias_view, name='categorias'),
+    
+    # Autenticação
+    path('login/', views.login_view, name='login'),
+    path('signup/', views.signup_view, name='signup'),
+    path('logout/', views.logout_view, name='logout'),
+    
+    # Assinaturas
+    path('assinaturas/', views.listar_assinaturas, name='assinaturas'),
+    path('assinaturas/nova/', views.criar_assinatura, name='criar_assinatura'),
+    path('assinaturas/<int:id>/editar/', views.editar_assinatura, name='editar_assinatura'),
+    path('assinaturas/<int:id>/deletar/', views.deletar_assinatura, name='deletar_assinatura'),
+    
+    # Categorias
+    path('categorias/', views.listar_categorias, name='categorias'),
 ]
