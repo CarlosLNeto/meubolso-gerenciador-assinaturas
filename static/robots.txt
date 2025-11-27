@@ -1,0 +1,11 @@
+# robots.txt para Meu Bolso - Aplicação Web Privada
+# Este arquivo instrui os motores de busca a não indexar a aplicação
+
+# Bloqueia todos os crawlers
+User-agent: *
+Disallow: /
+
+# Informações adicionais
+# Site: Meu Bolso - Gerenciador de Assinaturas
+# Tipo: Aplicação web privada com autenticação
+# Motivo do bloqueio: Dados pessoais e financeiros privados

@@ -1,7 +1,15 @@
 {% extends 'base.html' %}
 
 {% block title %}Categorias - Meu Bolso{% endblock %}
+{% block description %}Organize suas assinaturas por categorias personalizadas. Crie, edite e gerencie categorias para melhor controle financeiro.{% endblock %}
+{% block keywords %}categorias assinaturas, organizar despesas, classificação financeira{% endblock %}
+
 {% block page_title %}Gerenciar Categorias{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'dashboard' %}" style="color: var(--text-secondary); text-decoration: none;">Início</a></li>
+<li class="breadcrumb-item active" aria-current="page" style="color: var(--text-primary);">Categorias</li>
+{% endblock %}
 
 {% block content %}
 <!-- Estatísticas das Categorias -->

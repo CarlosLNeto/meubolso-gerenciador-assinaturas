@@ -1,7 +1,15 @@
 {% extends 'base.html' %}
 
 {% block title %}Configurações - Meu Bolso{% endblock %}
+{% block description %}Gerencie suas informações pessoais, altere sua senha e configure preferências da sua conta no Meu Bolso.{% endblock %}
+{% block keywords %}configurações conta, alterar senha, perfil usuário, segurança{% endblock %}
+
 {% block page_title %}Configurações{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'dashboard' %}" style="color: var(--text-secondary); text-decoration: none;">Início</a></li>
+<li class="breadcrumb-item active" aria-current="page" style="color: var(--text-primary);">Configurações</li>
+{% endblock %}
 
 {% block content %}
 <div class="row">

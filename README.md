@@ -58,9 +58,6 @@ pip install -r requirements.txt
 # Execute as migrações
 python manage.py migrate
 
-# Crie um superusuário (opcional)
-python manage.py createsuperuser
-
 # Inicie o servidor
 python manage.py runserver
 ```
@@ -80,8 +77,9 @@ ProjetoTecWeb/
 │   ├── apps.py          # Configuração da app
 │   └── signals.py       # Signals (categorias padrão)
 ├── meubolso/            # Configurações do projeto
-├── docs/                # Documentação (diagrama ER)
+├── docs/                # Documentação
 ├── scripts/             # Scripts utilitários
+├── static/              # Arquivos estáticos
 ├── manage.py            # Gerenciador Django
 ├── requirements.txt     # Dependências
 └── README.md           # Este arquivo
@@ -112,7 +110,7 @@ Criadas automaticamente no cadastro:
 - Restaurante
 - Assinatura
 
-## Gerenciamento do Banco de Dados
+## Administração
 
 ### Django Admin
 
@@ -124,52 +122,7 @@ python manage.py createsuperuser
 # URL: http://127.0.0.1:8000/admin/
 ```
 
-### Django Shell
-
-```bash
-python manage.py shell
-
-# Exemplos de consultas
->>> from django.contrib.auth.models import User
->>> from assinaturas.models import Categoria, Assinatura
-
-# Listar usuários
->>> User.objects.all()
-
-# Assinaturas ativas de um usuário
->>> user = User.objects.get(username='seu_usuario')
->>> Assinatura.objects.filter(usuario=user, status='ATIVA')
-
-# Total de gastos mensais
->>> total = sum(a.valor_mensal() for a in user.assinaturas.filter(status='ATIVA'))
-```
-
-### SQLite CLI
-
-```bash
-sqlite3 db.sqlite3
-
-.tables                                    # Listar tabelas
-SELECT * FROM auth_user;                   # Listar usuários
-SELECT * FROM assinaturas_categoria;       # Listar categorias
-SELECT * FROM assinaturas_assinatura;      # Listar assinaturas
-.quit
-```
-
-### DB Browser for SQLite
-
-Interface gráfica para visualização: https://sqlitebrowser.org/
-
-### Backup e Restore
-
-```bash
-# Backup
-python manage.py dumpdata > backup.json
-cp db.sqlite3 db.sqlite3.backup
-
-# Restore
-python manage.py loaddata backup.json
-```
+Interface administrativa completa para gerenciar usuários, categorias e assinaturas.
 
 ## Scripts Utilitários
 
@@ -198,17 +151,26 @@ python manage.py migrate
 
 # Servidor
 python manage.py runserver
-python manage.py runserver 8080  # Porta alternativa
 
 # Verificação
 python manage.py check
 
 # Testes
 python manage.py test
-
-# Coletar arquivos estáticos
-python manage.py collectstatic
 ```
+
+## SEO e Boas Práticas
+
+O projeto implementa técnicas modernas de SEO:
+
+- Títulos únicos e descritivos por página
+- Meta descriptions personalizadas
+- URLs semânticas e RESTful
+- Breadcrumbs para navegação
+- HTML semântico com ARIA
+- robots.txt para controle de indexação
+
+Detalhes em: `docs/SEO_IMPLEMENTADO.md`
 
 ## Diagrama ER
 
@@ -218,27 +180,6 @@ Consulte o arquivo `docs/diagrama_er_mermaid.md` para visualização completa do
 - USUARIO 1:N CATEGORIA
 - USUARIO 1:N ASSINATURA
 - CATEGORIA 1:N ASSINATURA
-
-## Desenvolvimento
-
-### Ambiente de Desenvolvimento
-
-```bash
-# Ativar ambiente virtual
-source .venv/bin/activate
-
-# Instalar/Atualizar dependências
-pip install -r requirements.txt --upgrade
-
-# Verificar instalação
-python manage.py check
-```
-
-### Estrutura de Branches (recomendado)
-
-- `main`: Versão estável
-- `develop`: Desenvolvimento
-- `feature/*`: Novas funcionalidades
 
 ## Licença
 

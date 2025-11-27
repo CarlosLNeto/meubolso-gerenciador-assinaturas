@@ -3,7 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- SEO: Títulos únicos e precisos -->
     <title>{% block title %}Meu Bolso - Gerenciador de Assinaturas{% endblock %}</title>
+    
+    <!-- SEO: Meta tag de descrição -->
+    <meta name="description" content="{% block description %}Gerencie suas assinaturas e despesas recorrentes de forma inteligente. Controle financeiro simplificado para Netflix, Spotify e outros serviços.{% endblock %}">
+    
+    <!-- Meta tags adicionais -->
+    <meta name="keywords" content="{% block keywords %}gerenciador assinaturas, controle financeiro, despesas recorrentes, finanças pessoais{% endblock %}">
+    <meta name="author" content="Carlos Alves Lavor Neto, Eric Dias Perin - UEA">
+    
+    <!-- Aplicação privada: bloqueia indexação -->
+    <meta name="robots" content="noindex, nofollow">
     
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='%233b82f6' d='M0 0h1v15h15v1H0V0Zm10 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4.9l-3.613 4.417a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61L13.445 4H10.5a.5.5 0 0 1-.5-.5Z'/></svg>">
@@ -370,6 +383,15 @@
         
         <!-- Page Content -->
         <div class="content-container">
+            <!-- SEO: Breadcrumb para navegação -->
+            <nav aria-label="breadcrumb" class="mb-3">
+                <ol class="breadcrumb" style="background-color: transparent; padding: 0; margin: 0;">
+                    {% block breadcrumb %}
+                    <li class="breadcrumb-item"><a href="{% url 'dashboard' %}" style="color: var(--text-secondary); text-decoration: none;">Início</a></li>
+                    {% endblock %}
+                </ol>
+            </nav>
+            
             {% block content %}
             <!-- Conteúdo das páginas filhas virá aqui -->
             {% endblock %}
