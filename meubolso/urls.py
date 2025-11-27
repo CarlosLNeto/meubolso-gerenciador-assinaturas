@@ -16,7 +16,27 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from assinaturas import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # Dashboard
+    path('', views.dashboard, name='dashboard'),
+    
+    # Autenticação
+    path('login/', views.login_view, name='login'),
+    path('signup/', views.signup_view, name='signup'),
+    path('logout/', views.logout_view, name='logout'),
+    
+    # Assinaturas
+    path('assinaturas/', views.listar_assinaturas, name='assinaturas'),
+    path('assinaturas/nova/', views.criar_assinatura, name='criar_assinatura'),
+    path('assinaturas/<int:id>/editar/', views.editar_assinatura, name='editar_assinatura'),
+    path('assinaturas/<int:id>/deletar/', views.deletar_assinatura, name='deletar_assinatura'),
+    
+    # Categorias
+    path('categorias/', views.listar_categorias, name='categorias'),
+    path('categorias/nova/', views.criar_categoria, name='criar_categoria'),
+    path('categorias/<int:id>/editar/', views.editar_categoria, name='editar_categoria'),
+    path('categorias/<int:id>/deletar/', views.deletar_categoria, name='deletar_categoria'),
 ]

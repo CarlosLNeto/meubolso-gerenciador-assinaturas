@@ -1,0 +1,243 @@
+{% extends 'base.html' %}
+
+{% block title %}Nova Assinatura - Meu Bolso{% endblock %}
+{% block page_title %}Nova Assinatura{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <!-- Card do Formulário -->
+        <div class="card-custom">
+            <div class="d-flex align-items-center gap-3 mb-4">
+                <a href="{% url 'assinaturas' %}" class="btn" style="background: var(--bg-tertiary); color: var(--text-primary); border: none; padding: 0.5rem 0.75rem; border-radius: 0.5rem;">
+                    <i class="bi bi-arrow-left"></i>
+                </a>
+                <div>
+                    <h2 style="font-size: 1.5rem; font-weight: 600; margin: 0;">Adicionar Nova Assinatura</h2>
+                    <p class="text-secondary-custom mb-0" style="font-size: 0.875rem;">Preencha os dados da sua nova assinatura</p>
+                </div>
+            </div>
+
+            <!-- Messages -->
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert-custom {% if message.tags == 'error' %}alert-error{% else %}alert-success{% endif %} mb-4">
+                        <i class="bi {% if message.tags == 'error' %}bi-exclamation-circle{% else %}bi-check-circle{% endif %}"></i>
+                        <span>{{ message }}</span>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <!-- Formulário -->
+            <form method="POST" action="{% url 'criar_assinatura' %}">
+                {% csrf_token %}
+
+                <div class="row g-4">
+                    <!-- Nome da Assinatura -->
+                    <div class="col-md-8">
+                        <label for="nome" class="form-label">
+                            Nome da Assinatura <span style="color: var(--accent-red);">*</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="nome" 
+                            name="nome" 
+                            class="form-control-custom" 
+                            placeholder="Ex: Netflix, Spotify, Adobe..."
+                            required
+                        >
+                    </div>
+
+                    <!-- Categoria -->
+                    <div class="col-md-4">
+                        <label for="categoria" class="form-label">Categoria</label>
+                        <select id="categoria" name="categoria" class="form-control-custom">
+                            <option value="">Sem categoria</option>
+                            {% for categoria in categorias %}
+                                <option value="{{ categoria.id }}">{{ categoria.nome }}</option>
+                            {% endfor %}
+                        </select>
+                        <small class="text-secondary-custom" style="font-size: 0.75rem;">
+                            <a href="{% url 'categorias' %}" style="color: var(--accent-blue);">+ Criar nova categoria</a>
+                        </small>
+                    </div>
+
+                    <!-- Valor -->
+                    <div class="col-md-4">
+                        <label for="valor" class="form-label">
+                            Valor (R$) <span style="color: var(--accent-red);">*</span>
+                        </label>
+                        <div class="input-group-custom">
+                            <span style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--text-secondary);">R$</span>
+                            <input 
+                                type="text" 
+                                id="valor" 
+                                name="valor" 
+                                class="form-control-custom" 
+                                placeholder="0,00"
+                                style="padding-left: 2.75rem;"
+                                required
+                            >
+                        </div>
+                    </div>
+
+                    <!-- Ciclo de Pagamento -->
+                    <div class="col-md-4">
+                        <label for="ciclo_pagamento" class="form-label">
+                            Ciclo de Pagamento <span style="color: var(--accent-red);">*</span>
+                        </label>
+                        <select id="ciclo_pagamento" name="ciclo_pagamento" class="form-control-custom" required>
+                            <option value="">Selecione...</option>
+                            {% for value, label in ciclos %}
+                                <option value="{{ value }}">{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- Data da Primeira Cobrança -->
+                    <div class="col-md-4">
+                        <label for="data_primeira_cobranca" class="form-label">
+                            Data da Primeira Cobrança <span style="color: var(--accent-red);">*</span>
+                        </label>
+                        <input 
+                            type="date" 
+                            id="data_primeira_cobranca" 
+                            name="data_primeira_cobranca" 
+                            class="form-control-custom" 
+                            required
+                        >
+                    </div>
+
+                    <!-- Status -->
+                    <div class="col-md-4">
+                        <label for="status" class="form-label">Status</label>
+                        <select id="status" name="status" class="form-control-custom">
+                            {% for value, label in status_choices %}
+                                <option value="{{ value }}" {% if value == 'ATIVA' %}selected{% endif %}>{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- Descrição -->
+                    <div class="col-12">
+                        <label for="descricao" class="form-label">Descrição</label>
+                        <textarea 
+                            id="descricao" 
+                            name="descricao" 
+                            class="form-control-custom" 
+                            rows="3" 
+                            placeholder="Adicione detalhes sobre esta assinatura (opcional)"
+                        ></textarea>
+                    </div>
+
+                    <!-- Observações -->
+                    <div class="col-12">
+                        <label for="observacoes" class="form-label">Observações</label>
+                        <textarea 
+                            id="observacoes" 
+                            name="observacoes" 
+                            class="form-control-custom" 
+                            rows="2" 
+                            placeholder="Notas adicionais, lembretes, etc (opcional)"
+                        ></textarea>
+                    </div>
+                </div>
+
+                <!-- Botões de Ação -->
+                <div class="d-flex gap-3 mt-4 pt-4" style="border-top: 1px solid var(--border-color);">
+                    <button type="submit" class="btn-primary-custom" style="flex: 1;">
+                        <i class="bi bi-check-lg"></i> Criar Assinatura
+                    </button>
+                    <a href="{% url 'assinaturas' %}" class="btn" style="flex: 1; background: var(--bg-tertiary); color: var(--text-primary); border: none; padding: 0.875rem; border-radius: 0.5rem; text-align: center; text-decoration: none; font-weight: 600;">
+                        <i class="bi bi-x-lg"></i> Cancelar
+                    </a>
+                </div>
+            </form>
+        </div>
+
+        <!-- Card de Ajuda -->
+        <div class="card-custom mt-4" style="background: rgba(59, 130, 246, 0.05); border-color: rgba(59, 130, 246, 0.2);">
+            <div class="d-flex gap-3">
+                <i class="bi bi-info-circle" style="font-size: 1.5rem; color: var(--accent-blue);"></i>
+                <div>
+                    <h4 style="font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem;">Dicas</h4>
+                    <ul class="text-secondary-custom" style="font-size: 0.875rem; margin: 0; padding-left: 1.25rem;">
+                        <li>A próxima cobrança será calculada automaticamente baseada no ciclo de pagamento</li>
+                        <li>Você pode editar qualquer informação depois de criar a assinatura</li>
+                        <li>Use categorias para organizar melhor suas assinaturas</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .form-control-custom {
+        width: 100%;
+        padding: 0.875rem 1rem;
+        background-color: var(--bg-tertiary);
+        border: 1px solid var(--border-color);
+        border-radius: 0.5rem;
+        color: var(--text-primary);
+        font-size: 0.875rem;
+        transition: all 0.2s ease;
+    }
+    
+    .form-control-custom:focus {
+        outline: none;
+        border-color: var(--accent-blue);
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+    
+    .form-control-custom::placeholder {
+        color: var(--text-secondary);
+    }
+    
+    .form-label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        font-size: 0.875rem;
+        color: var(--text-primary);
+    }
+    
+    .input-group-custom {
+        position: relative;
+    }
+    
+    textarea.form-control-custom {
+        resize: vertical;
+        min-height: 80px;
+    }
+    
+    .alert-custom {
+        padding: 0.875rem 1rem;
+        border-radius: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+    
+    .alert-error {
+        background-color: rgba(239, 68, 68, 0.1);
+        border: 1px solid rgba(239, 68, 68, 0.3);
+        color: #ef4444;
+    }
+    
+    .alert-success {
+        background-color: rgba(16, 185, 129, 0.1);
+        border: 1px solid rgba(16, 185, 129, 0.3);
+        color: #10b981;
+    }
+</style>
+
+<script>
+    // Formatar valor monetário
+    document.getElementById('valor').addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\D/g, '');
+        value = (parseInt(value) / 100).toFixed(2);
+        e.target.value = value.replace('.', ',');
+    });
+</script>
+{% endblock %}

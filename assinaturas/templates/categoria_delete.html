@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+
+{% block title %}Deletar Categoria - Meu Bolso{% endblock %}
+{% block page_title %}Confirmar Exclusão{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="card-custom border-danger">
+            <div class="text-center mb-4">
+                <div class="icon-danger mx-auto mb-3">
+                    <i class="bi bi-exclamation-triangle"></i>
+                </div>
+                <h4 class="mb-2">Deletar Categoria</h4>
+                <p class="text-secondary-custom">Esta ação não pode ser desfeita!</p>
+            </div>
+
+            <!-- Informações da Categoria -->
+            <div class="category-info p-4 rounded-3 mb-4" style="background-color: var(--bg-secondary);">
+                <div class="d-flex align-items-center mb-3">
+                    <span class="badge me-3" style="background-color: {{ categoria.cor }}; font-size: 1.5rem; padding: 0.5rem 1rem;">
+                        <i class="bi bi-tag-fill"></i>
+                    </span>
+                    <div>
+                        <h5 class="mb-0">{{ categoria.nome }}</h5>
+                        {% if categoria.descricao %}
+                            <p class="text-secondary-custom mb-0 small">{{ categoria.descricao }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="row g-3 mt-2">
+                    <div class="col-6">
+                        <div class="stat-box p-3 rounded-3 text-center" style="background-color: var(--bg-primary);">
+                            <i class="bi bi-bookmark-star text-success fs-4"></i>
+                            <p class="mb-0 mt-2 small text-secondary-custom">Assinaturas Ativas</p>
+                            <h4 class="mb-0">{{ categoria.assinaturas_ativas }}</h4>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="stat-box p-3 rounded-3 text-center" style="background-color: var(--bg-primary);">
+                            <i class="bi bi-bookmarks text-info fs-4"></i>
+                            <p class="mb-0 mt-2 small text-secondary-custom">Total de Assinaturas</p>
+                            <h4 class="mb-0">{{ categoria.total_assinaturas }}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Aviso sobre Impacto -->
+            {% if categoria.total_assinaturas > 0 %}
+                <div class="alert alert-warning d-flex align-items-start" role="alert">
+                    <i class="bi bi-info-circle fs-5 me-3"></i>
+                    <div>
+                        <strong>Atenção!</strong><br>
+                        Esta categoria possui <strong>{{ categoria.total_assinaturas }} assinatura(s)</strong> vinculada(s).
+                        <br><br>
+                        Ao deletar esta categoria:
+                        <ul class="mb-0 mt-2">
+                            <li>As assinaturas <strong>NÃO serão deletadas</strong></li>
+                            <li>O campo categoria das assinaturas será definido como <strong>Sem Categoria</strong></li>
+                            <li>Você poderá reorganizar as assinaturas em outras categorias posteriormente</li>
+                        </ul>
+                    </div>
+                </div>
+            {% else %}
+                <div class="alert alert-info d-flex align-items-start" role="alert">
+                    <i class="bi bi-info-circle fs-5 me-3"></i>
+                    <div>
+                        Esta categoria não possui assinaturas vinculadas e pode ser deletada sem impacto.
+                    </div>
+                </div>
+            {% endif %}
+
+            <!-- Formulário de Confirmação -->
+            <form method="post">
+                {% csrf_token %}
+                
+                <div class="border-top border-secondary pt-4 mt-4">
+                    <p class="text-center mb-4">
+                        <strong>Tem certeza que deseja deletar a categoria "{{ categoria.nome }}"?</strong>
+                    </p>
+                    
+                    <div class="d-flex gap-2">
+                        <a href="{% url 'categorias' %}" class="btn btn-secondary-custom flex-fill">
+                            <i class="bi bi-x-lg"></i> Cancelar
+                        </a>
+                        <button type="submit" class="btn btn-danger flex-fill">
+                            <i class="bi bi-trash"></i> Sim, Deletar Categoria
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Alternativas -->
+        <div class="card-custom mt-3">
+            <h6 class="mb-3"><i class="bi bi-lightbulb"></i> Alternativas Sugeridas</h6>
+            <div class="d-flex flex-column gap-2">
+                <a href="{% url 'editar_categoria' categoria.id %}" class="btn btn-outline-primary btn-sm">
+                    <i class="bi bi-pencil"></i> Editar categoria ao invés de deletar
+                </a>
+                {% if categoria.total_assinaturas > 0 %}
+                <a href="{% url 'assinaturas' %}" class="btn btn-outline-primary btn-sm">
+                    <i class="bi bi-arrow-left-right"></i> Mover assinaturas para outra categoria
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .icon-danger {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(220, 38, 38, 0.2));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5rem;
+        color: var(--bs-danger);
+    }
+    
+    .badge {
+        padding: 0.5rem 1rem;
+        font-weight: 600;
+    }
+    
+    .btn-danger {
+        background: linear-gradient(135deg, #ef4444, #dc2626);
+        border: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-danger:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 16px rgba(239, 68, 68, 0.3);
+    }
+    
+    .alert {
+        border-radius: 12px;
+        border: none;
+    }
+    
+    .alert-warning {
+        background: rgba(245, 158, 11, 0.1);
+        color: var(--text-primary);
+        border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+    
+    .alert-info {
+        background: rgba(59, 130, 246, 0.1);
+        color: var(--text-primary);
+        border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+</style>
+{% endblock %}
