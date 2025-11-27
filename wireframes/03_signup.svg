@@ -1,0 +1,32 @@
+<svg width="1000" height="800" viewBox="0 0 1000 800" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0" y="0" width="1000" height="800" fill="#ffffff"/>
+    <g stroke="#000000" stroke-width="2" fill="none" font-family="sans-serif" font-size="16">
+        
+    <!-- Container -->
+    <rect x="50" y="50" width="900" height="600" rx="10" ry="10" fill="#ffffff"/>
+    <line x1="400" y1="50" x2="400" y2="650"/>
+    
+    <!-- Left: Branding -->
+    <circle cx="225" cy="250" r="40" fill="#ffffff"/>
+    <text x="225" y="320" font-size="24" font-weight="bold" text-anchor="middle" fill="#000000" stroke="none">Comece Agora</text>
+    
+    <!-- Right: Form -->
+    <text x="450" y="100" font-size="28" font-weight="bold" text-anchor="start" fill="#000000" stroke="none">Criar Conta</text>
+    
+    <text x="450" y="150" font-size="14" font-weight="normal" text-anchor="start" fill="#666" stroke="none">Nome de Usuário</text>
+    <rect x="450" y="160" width="400" height="40" rx="5" ry="5" fill="#ffffff"/>
+    
+    <text x="450" y="220" font-size="14" font-weight="normal" text-anchor="start" fill="#666" stroke="none">E-mail</text>
+    <rect x="450" y="230" width="400" height="40" rx="5" ry="5" fill="#ffffff"/>
+    
+    <text x="450" y="290" font-size="14" font-weight="normal" text-anchor="start" fill="#666" stroke="none">Senha</text>
+    <rect x="450" y="300" width="400" height="40" rx="5" ry="5" fill="#ffffff"/>
+    
+    <text x="450" y="360" font-size="14" font-weight="normal" text-anchor="start" fill="#666" stroke="none">Confirmar Senha</text>
+    <rect x="450" y="370" width="400" height="40" rx="5" ry="5" fill="#ffffff"/>
+    
+    <rect x="450" y="450" width="400" height="45" rx="5" ry="5" fill="#ffffff"/> <!-- Button -->
+    <text x="650" y="480" font-size="16" font-weight="bold" text-anchor="middle" fill="#000" stroke="none">CADASTRAR</text>
+
+    </g>
+</svg>

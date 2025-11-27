@@ -1,0 +1,39 @@
+<svg width="1000" height="800" viewBox="0 0 1000 800" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0" y="0" width="1000" height="800" fill="#ffffff"/>
+    <g stroke="#000000" stroke-width="2" fill="none" font-family="sans-serif" font-size="16">
+        
+    <!-- Navbar -->
+    <rect x="0" y="0" width="1000" height="60" rx="0" ry="0" fill="#ffffff"/>
+    <text x="30" y="35" font-size="20" font-weight="bold" text-anchor="start" fill="#000000" stroke="none">Meu Bolso</text>
+    
+    <text x="30" y="100" font-size="24" font-weight="bold" text-anchor="start" fill="#000000" stroke="none">Configurações</text>
+    
+    <!-- Left Col: Profile -->
+    <rect x="30" y="140" width="600" height="400" rx="8" ry="8" fill="#ffffff"/>
+    <text x="50" y="180" font-size="18" font-weight="bold" text-anchor="start" fill="#000000" stroke="none">Perfil</text>
+    
+    <text x="50" y="220" font-size="14" font-weight="normal" text-anchor="start" fill="#666" stroke="none">Nome Completo</text>
+    <rect x="50" y="230" width="560" height="40" rx="5" ry="5" fill="#ffffff"/>
+    
+    <text x="50" y="290" font-size="14" font-weight="normal" text-anchor="start" fill="#666" stroke="none">E-mail</text>
+    <rect x="50" y="300" width="560" height="40" rx="5" ry="5" fill="#ffffff"/>
+    
+    <text x="50" y="360" font-size="14" font-weight="normal" text-anchor="start" fill="#666" stroke="none">Senha</text>
+    <rect x="50" y="370" width="560" height="40" rx="5" ry="5" fill="#ffffff"/>
+    <text x="560" y="395" font-size="12" font-weight="bold" text-anchor="end" fill="#000" stroke="none">Alterar</text>
+    
+    <rect x="50" y="460" width="150" height="40" rx="5" ry="5" fill="#ffffff"/>
+    <text x="125" y="485" font-size="14" font-weight="bold" text-anchor="middle" fill="#000000" stroke="none">Salvar</text>
+    
+    <!-- Right Col: Account Info -->
+    <rect x="650" y="140" width="320" height="200" rx="8" ry="8" fill="#ffffff"/>
+    <text x="670" y="180" font-size="18" font-weight="bold" text-anchor="start" fill="#000000" stroke="none">Sua Conta</text>
+    
+    <text x="670" y="220" font-size="14" font-weight="normal" text-anchor="start" fill="#666" stroke="none">Plano Atual</text>
+    <text x="670" y="240" font-size="16" font-weight="bold" text-anchor="start" fill="#000000" stroke="none">Premium</text>
+    
+    <text x="670" y="280" font-size="14" font-weight="normal" text-anchor="start" fill="#666" stroke="none">Membro desde</text>
+    <text x="670" y="300" font-size="16" font-weight="bold" text-anchor="start" fill="#000000" stroke="none">Jan 2024</text>
+
+    </g>
+</svg>

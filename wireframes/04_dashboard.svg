@@ -1,0 +1,65 @@
+<svg width="1000" height="800" viewBox="0 0 1000 800" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0" y="0" width="1000" height="800" fill="#ffffff"/>
+    <g stroke="#000000" stroke-width="2" fill="none" font-family="sans-serif" font-size="16">
+        
+    <!-- Navbar -->
+    <rect x="0" y="0" width="1000" height="60" rx="0" ry="0" fill="#ffffff"/>
+    <text x="30" y="35" font-size="20" font-weight="bold" text-anchor="start" fill="#000000" stroke="none">Meu Bolso</text>
+    <text x="900" y="35" font-size="16" font-weight="normal" text-anchor="start" fill="#000000" stroke="none">Sair</text>
+    
+    <!-- Stats Cards -->
+    <rect x="30" y="90" width="220" height="100" rx="8" ry="8" fill="#ffffff"/>
+    <text x="50" y="120" font-size="14" font-weight="normal" text-anchor="start" fill="#666" stroke="none">Total Assinaturas</text>
+    <text x="50" y="160" font-size="32" font-weight="bold" text-anchor="start" fill="#000000" stroke="none">12</text>
+    
+    <rect x="270" y="90" width="220" height="100" rx="8" ry="8" fill="#ffffff"/>
+    <text x="290" y="120" font-size="14" font-weight="normal" text-anchor="start" fill="#666" stroke="none">Gasto Mensal</text>
+    <text x="290" y="160" font-size="32" font-weight="bold" text-anchor="start" fill="#000000" stroke="none">R$ 450,00</text>
+    
+    <rect x="510" y="90" width="220" height="100" rx="8" ry="8" fill="#ffffff"/>
+    <text x="530" y="120" font-size="14" font-weight="normal" text-anchor="start" fill="#666" stroke="none">Próximas Cobranças</text>
+    <text x="530" y="160" font-size="32" font-weight="bold" text-anchor="start" fill="#000000" stroke="none">3</text>
+    
+    <rect x="750" y="90" width="220" height="100" rx="8" ry="8" fill="#ffffff"/>
+    <text x="770" y="120" font-size="14" font-weight="normal" text-anchor="start" fill="#666" stroke="none">Categorias</text>
+    <text x="770" y="160" font-size="32" font-weight="bold" text-anchor="start" fill="#000000" stroke="none">5</text>
+    
+    <!-- Main Content -->
+    <text x="30" y="240" font-size="20" font-weight="bold" text-anchor="start" fill="#000000" stroke="none">Assinaturas Recentes</text>
+    
+    <!-- Table Header -->
+    <rect x="30" y="260" width="650" height="40" rx="0" ry="0" fill="#ffffff"/>
+    <text x="50" y="285" font-size="14" font-weight="bold" text-anchor="start" fill="#000000" stroke="none">Nome</text>
+    <text x="250" y="285" font-size="14" font-weight="bold" text-anchor="start" fill="#000000" stroke="none">Valor</text>
+    <text x="400" y="285" font-size="14" font-weight="bold" text-anchor="start" fill="#000000" stroke="none">Data</text>
+    <text x="550" y="285" font-size="14" font-weight="bold" text-anchor="start" fill="#000000" stroke="none">Status</text>
+    
+    <!-- Table Rows -->
+    <rect x="30" y="300" width="650" height="50" rx="0" ry="0" fill="#ffffff"/>
+    <text x="50" y="330" font-size="16" font-weight="normal" text-anchor="start" fill="#000000" stroke="none">Netflix</text>
+    <text x="250" y="330" font-size="16" font-weight="normal" text-anchor="start" fill="#000000" stroke="none">R$ 55,90</text>
+    <text x="400" y="330" font-size="16" font-weight="normal" text-anchor="start" fill="#000000" stroke="none">15/11</text>
+    <text x="550" y="330" font-size="16" font-weight="normal" text-anchor="start" fill="#000000" stroke="none">Ativa</text>
+    
+    <rect x="30" y="350" width="650" height="50" rx="0" ry="0" fill="#ffffff"/>
+    <text x="50" y="380" font-size="16" font-weight="normal" text-anchor="start" fill="#000000" stroke="none">Spotify</text>
+    <text x="250" y="380" font-size="16" font-weight="normal" text-anchor="start" fill="#000000" stroke="none">R$ 21,90</text>
+    <text x="400" y="380" font-size="16" font-weight="normal" text-anchor="start" fill="#000000" stroke="none">20/11</text>
+    <text x="550" y="380" font-size="16" font-weight="normal" text-anchor="start" fill="#000000" stroke="none">Ativa</text>
+    
+    <rect x="30" y="400" width="650" height="50" rx="0" ry="0" fill="#ffffff"/>
+    <text x="50" y="430" font-size="16" font-weight="normal" text-anchor="start" fill="#000000" stroke="none">Adobe</text>
+    <text x="250" y="430" font-size="16" font-weight="normal" text-anchor="start" fill="#000000" stroke="none">R$ 120,00</text>
+    <text x="400" y="430" font-size="16" font-weight="normal" text-anchor="start" fill="#000000" stroke="none">01/12</text>
+    <text x="550" y="430" font-size="16" font-weight="normal" text-anchor="start" fill="#000000" stroke="none">Ativa</text>
+    
+    <!-- Sidebar -->
+    <text x="710" y="240" font-size="20" font-weight="bold" text-anchor="start" fill="#000000" stroke="none">Próximas</text>
+    <rect x="710" y="260" width="260" height="300" rx="8" ry="8" fill="#ffffff"/>
+    <text x="730" y="290" font-size="14" font-weight="normal" text-anchor="start" fill="#000000" stroke="none">Netflix - 15/11</text>
+    <line x1="710" y1="310" x2="970" y2="310"/>
+    <text x="730" y="340" font-size="14" font-weight="normal" text-anchor="start" fill="#000000" stroke="none">Spotify - 20/11</text>
+    <line x1="710" y1="360" x2="970" y2="360"/>
+
+    </g>
+</svg>

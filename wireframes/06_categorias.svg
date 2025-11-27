@@ -1,0 +1,45 @@
+<svg width="1000" height="800" viewBox="0 0 1000 800" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0" y="0" width="1000" height="800" fill="#ffffff"/>
+    <g stroke="#000000" stroke-width="2" fill="none" font-family="sans-serif" font-size="16">
+        
+    <!-- Navbar -->
+    <rect x="0" y="0" width="1000" height="60" rx="0" ry="0" fill="#ffffff"/>
+    <text x="30" y="35" font-size="20" font-weight="bold" text-anchor="start" fill="#000000" stroke="none">Meu Bolso</text>
+    
+    <!-- Header -->
+    <text x="30" y="100" font-size="24" font-weight="bold" text-anchor="start" fill="#000000" stroke="none">Categorias</text>
+    <rect x="800" y="80" width="170" height="40" rx="5" ry="5" fill="#ffffff"/>
+    <text x="885" y="105" font-size="14" font-weight="bold" text-anchor="middle" fill="#000000" stroke="none">+ Nova Categoria</text>
+    
+    <!-- Stats -->
+    <rect x="30" y="140" width="300" height="80" rx="8" ry="8" fill="#ffffff"/>
+    <text x="50" y="170" font-size="14" font-weight="normal" text-anchor="start" fill="#666" stroke="none">Total</text>
+    <text x="50" y="200" font-size="20" font-weight="bold" text-anchor="start" fill="#000000" stroke="none">8 Categorias</text>
+    
+    <rect x="350" y="140" width="300" height="80" rx="8" ry="8" fill="#ffffff"/>
+    <text x="370" y="170" font-size="14" font-weight="normal" text-anchor="start" fill="#666" stroke="none">Mais Usada</text>
+    <text x="370" y="200" font-size="20" font-weight="bold" text-anchor="start" fill="#000000" stroke="none">Entretenimento</text>
+    
+    <!-- Grid -->
+    <rect x="30" y="250" width="220" height="150" rx="8" ry="8" fill="#ffffff"/>
+    <circle cx="140" cy="290" r="20" fill="#ffffff"/>
+    <text x="140" y="330" font-size="16" font-weight="bold" text-anchor="middle" fill="#000000" stroke="none">Entretenimento</text>
+    <text x="140" y="350" font-size="12" font-weight="normal" text-anchor="middle" fill="#666" stroke="none">4 assinaturas</text>
+    
+    <rect x="270" y="250" width="220" height="150" rx="8" ry="8" fill="#ffffff"/>
+    <circle cx="380" cy="290" r="20" fill="#ffffff"/>
+    <text x="380" y="330" font-size="16" font-weight="bold" text-anchor="middle" fill="#000000" stroke="none">Educação</text>
+    <text x="380" y="350" font-size="12" font-weight="normal" text-anchor="middle" fill="#666" stroke="none">2 assinaturas</text>
+    
+    <rect x="510" y="250" width="220" height="150" rx="8" ry="8" fill="#ffffff"/>
+    <circle cx="620" cy="290" r="20" fill="#ffffff"/>
+    <text x="620" y="330" font-size="16" font-weight="bold" text-anchor="middle" fill="#000000" stroke="none">Saúde</text>
+    <text x="620" y="350" font-size="12" font-weight="normal" text-anchor="middle" fill="#666" stroke="none">1 assinatura</text>
+    
+    <rect x="750" y="250" width="220" height="150" rx="8" ry="8" fill="#ffffff"/>
+    <circle cx="860" cy="290" r="20" fill="#ffffff"/>
+    <text x="860" y="330" font-size="16" font-weight="bold" text-anchor="middle" fill="#000000" stroke="none">Transporte</text>
+    <text x="860" y="350" font-size="12" font-weight="normal" text-anchor="middle" fill="#666" stroke="none">1 assinatura</text>
+
+    </g>
+</svg>
