@@ -39,4 +39,7 @@ urlpatterns = [
     path('categorias/nova/', views.criar_categoria, name='criar_categoria'),
     path('categorias/<int:id>/editar/', views.editar_categoria, name='editar_categoria'),
     path('categorias/<int:id>/deletar/', views.deletar_categoria, name='deletar_categoria'),
+    
+    # Configurações
+    path('configuracoes/', views.configuracoes, name='configuracoes'),
 ]

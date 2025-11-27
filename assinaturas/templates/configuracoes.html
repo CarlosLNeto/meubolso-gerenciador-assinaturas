@@ -1,0 +1,220 @@
+{% extends 'base.html' %}
+
+{% block title %}Configurações - Meu Bolso{% endblock %}
+{% block page_title %}Configurações{% endblock %}
+
+{% block content %}
+<div class="row">
+    <!-- Perfil do Usuário -->
+    <div class="col-lg-8">
+        <div class="card-custom mb-4">
+            <h4 class="mb-4" style="display: flex; align-items: center; gap: 0.75rem;">
+                <i class="bi bi-person-circle" style="color: var(--accent-blue);"></i>
+                Informações do Perfil
+            </h4>
+            
+            {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+                {% endfor %}
+            {% endif %}
+            
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="update_profile">
+                
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="username" class="form-label text-secondary-custom">Nome de usuário</label>
+                        <input type="text" class="form-control bg-dark text-light border-secondary" 
+                               id="username" value="{{ user.username }}" disabled>
+                        <small class="text-secondary-custom">O nome de usuário não pode ser alterado</small>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="email" class="form-label text-secondary-custom">Email *</label>
+                        <input type="email" class="form-control bg-dark text-light border-secondary" 
+                               id="email" name="email" value="{{ user.email }}" required>
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="first_name" class="form-label text-secondary-custom">Primeiro nome</label>
+                        <input type="text" class="form-control bg-dark text-light border-secondary" 
+                               id="first_name" name="first_name" value="{{ user.first_name }}">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="last_name" class="form-label text-secondary-custom">Sobrenome</label>
+                        <input type="text" class="form-control bg-dark text-light border-secondary" 
+                               id="last_name" name="last_name" value="{{ user.last_name }}">
+                    </div>
+                </div>
+                
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-primary-custom">
+                        <i class="bi bi-check-circle"></i>
+                        Salvar Alterações
+                    </button>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Segurança -->
+        <div class="card-custom">
+            <h4 class="mb-4" style="display: flex; align-items: center; gap: 0.75rem;">
+                <i class="bi bi-shield-lock" style="color: var(--accent-green);"></i>
+                Segurança
+            </h4>
+            
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="change_password">
+                
+                <div class="mb-3">
+                    <label for="current_password" class="form-label text-secondary-custom">Senha atual *</label>
+                    <input type="password" class="form-control bg-dark text-light border-secondary" 
+                           id="current_password" name="current_password" required>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="new_password" class="form-label text-secondary-custom">Nova senha *</label>
+                        <input type="password" class="form-control bg-dark text-light border-secondary" 
+                               id="new_password" name="new_password" required 
+                               minlength="6" placeholder="Mínimo 6 caracteres">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="confirm_password" class="form-label text-secondary-custom">Confirmar nova senha *</label>
+                        <input type="password" class="form-control bg-dark text-light border-secondary" 
+                               id="confirm_password" name="confirm_password" required>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-success-custom">
+                    <i class="bi bi-key"></i>
+                    Alterar Senha
+                </button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Estatísticas e Informações -->
+    <div class="col-lg-4">
+        <!-- Resumo da Conta -->
+        <div class="card-custom mb-4">
+            <h5 class="mb-3">Resumo da Conta</h5>
+            
+            <div class="d-flex justify-content-between align-items-center mb-3 pb-3" style="border-bottom: 1px solid var(--border-color);">
+                <div>
+                    <div class="text-secondary-custom" style="font-size: 0.875rem;">Total de Assinaturas</div>
+                    <div style="font-size: 1.5rem; font-weight: 600; color: var(--accent-blue);">
+                        {{ total_assinaturas }}
+                    </div>
+                </div>
+                <i class="bi bi-credit-card" style="font-size: 2rem; color: var(--accent-blue); opacity: 0.3;"></i>
+            </div>
+            
+            <div class="d-flex justify-content-between align-items-center mb-3 pb-3" style="border-bottom: 1px solid var(--border-color);">
+                <div>
+                    <div class="text-secondary-custom" style="font-size: 0.875rem;">Assinaturas Ativas</div>
+                    <div style="font-size: 1.5rem; font-weight: 600; color: var(--accent-green);">
+                        {{ assinaturas_ativas }}
+                    </div>
+                </div>
+                <i class="bi bi-check-circle" style="font-size: 2rem; color: var(--accent-green); opacity: 0.3;"></i>
+            </div>
+            
+            <div class="d-flex justify-content-between align-items-center mb-3 pb-3" style="border-bottom: 1px solid var(--border-color);">
+                <div>
+                    <div class="text-secondary-custom" style="font-size: 0.875rem;">Categorias</div>
+                    <div style="font-size: 1.5rem; font-weight: 600; color: var(--accent-purple);">
+                        {{ total_categorias }}
+                    </div>
+                </div>
+                <i class="bi bi-tag" style="font-size: 2rem; color: var(--accent-purple); opacity: 0.3;"></i>
+            </div>
+            
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <div class="text-secondary-custom" style="font-size: 0.875rem;">Gasto Mensal</div>
+                    <div style="font-size: 1.5rem; font-weight: 600; color: var(--accent-yellow);">
+                        R$ {{ gasto_mensal|floatformat:2 }}
+                    </div>
+                </div>
+                <i class="bi bi-cash-stack" style="font-size: 2rem; color: var(--accent-yellow); opacity: 0.3;"></i>
+            </div>
+        </div>
+        
+        <!-- Informações da Conta -->
+        <div class="card-custom">
+            <h5 class="mb-3">Informações da Conta</h5>
+            
+            <div class="mb-3">
+                <div class="text-secondary-custom" style="font-size: 0.875rem;">Membro desde</div>
+                <div style="font-weight: 500;">{{ user.date_joined|date:"d/m/Y" }}</div>
+            </div>
+            
+            <div class="mb-3">
+                <div class="text-secondary-custom" style="font-size: 0.875rem;">Último login</div>
+                <div style="font-weight: 500;">
+                    {% if user.last_login %}
+                        {{ user.last_login|date:"d/m/Y H:i" }}
+                    {% else %}
+                        Primeiro acesso
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="mb-3">
+                <div class="text-secondary-custom" style="font-size: 0.875rem;">Status</div>
+                <div>
+                    {% if user.is_active %}
+                        <span class="badge" style="background-color: var(--accent-green);">Ativo</span>
+                    {% else %}
+                        <span class="badge" style="background-color: var(--accent-red);">Inativo</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .form-control:focus,
+    .form-select:focus {
+        background-color: var(--bg-tertiary);
+        border-color: var(--accent-blue);
+        color: var(--text-primary);
+        box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.25);
+    }
+    
+    .form-control::placeholder {
+        color: var(--text-secondary);
+    }
+    
+    .alert {
+        border-radius: 0.5rem;
+        border: 1px solid;
+    }
+    
+    .alert-success {
+        background-color: rgba(16, 185, 129, 0.1);
+        border-color: var(--accent-green);
+        color: var(--accent-green);
+    }
+    
+    .alert-error,
+    .alert-danger {
+        background-color: rgba(239, 68, 68, 0.1);
+        border-color: var(--accent-red);
+        color: var(--accent-red);
+    }
+    
+    .btn-close {
+        filter: invert(1);
+    }
+</style>
+{% endblock %}

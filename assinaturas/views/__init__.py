@@ -31,6 +31,11 @@ from .categoria_views import (
     deletar_categoria,
 )
 
+# Importar views de configurações
+from .configuracoes_views import (
+    configuracoes,
+)
+
 # Manter compatibilidade com imports antigos
 assinaturas_view = listar_assinaturas
 categorias_view = listar_categorias
@@ -54,4 +59,6 @@ __all__ = [
     'editar_categoria',
     'deletar_categoria',
     'categorias_view',  # Alias para compatibilidade
+    # Configurações
+    'configuracoes',
 ]

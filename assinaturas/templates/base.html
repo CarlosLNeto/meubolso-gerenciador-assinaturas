@@ -298,25 +298,19 @@
                 </a>
             </li>
             <li class="sidebar-menu-item">
-                <a href="{% url 'assinaturas' %}" class="sidebar-menu-link {% if request.resolver_match.url_name == 'assinaturas' %}active{% endif %}">
+                <a href="{% url 'assinaturas' %}" class="sidebar-menu-link {% if request.resolver_match.url_name == 'assinaturas' or 'assinatura' in request.resolver_match.url_name %}active{% endif %}">
                     <i class="bi bi-credit-card"></i>
                     <span>Assinaturas</span>
                 </a>
             </li>
             <li class="sidebar-menu-item">
-                <a href="{% url 'categorias' %}" class="sidebar-menu-link {% if request.resolver_match.url_name == 'categorias' %}active{% endif %}">
+                <a href="{% url 'categorias' %}" class="sidebar-menu-link {% if request.resolver_match.url_name == 'categorias' or 'categoria' in request.resolver_match.url_name %}active{% endif %}">
                     <i class="bi bi-tag"></i>
                     <span>Categorias</span>
                 </a>
             </li>
             <li class="sidebar-menu-item">
-                <a href="#" class="sidebar-menu-link">
-                    <i class="bi bi-bell"></i>
-                    <span>Notificações</span>
-                </a>
-            </li>
-            <li class="sidebar-menu-item">
-                <a href="#" class="sidebar-menu-link">
+                <a href="{% url 'configuracoes' %}" class="sidebar-menu-link {% if request.resolver_match.url_name == 'configuracoes' %}active{% endif %}">
                     <i class="bi bi-gear"></i>
                     <span>Configurações</span>
                 </a>
@@ -345,10 +339,6 @@
                     <i class="bi bi-search"></i>
                     <input type="text" placeholder="Buscar...">
                 </div>
-                
-                <button class="btn btn-link text-light" style="font-size: 1.25rem;">
-                    <i class="bi bi-bell"></i>
-                </button>
                 
                 <div class="user-profile">
                     <div class="user-avatar">
